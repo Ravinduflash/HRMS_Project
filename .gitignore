@@ -3,4 +3,10 @@ __pycache__/
 *.pyc
 *.pyo
 .DS_Store
+<<<<<<< HEAD
 db.sqlite3
+=======
+db.sqlite3
+<<<<<<< HEAD
+# Local changes
+>>>>>>> origin/main
