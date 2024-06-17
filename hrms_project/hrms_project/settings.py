@@ -56,7 +56,7 @@ ROOT_URLCONF = 'hrms_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'login_form/templates'),  # Add the templates folder for login_form app
+        'DIRS': [BASE_DIR / "login_form/templates"  # Add the templates folder for login_form app
         ],
         'APP_DIRS': True,
         'OPTIONS': {
