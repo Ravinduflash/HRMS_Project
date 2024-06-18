@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
-from .forms import SignUpForm, LoginForm
+from.forms import SignUpForm, LoginForm
 from django.contrib.auth.models import User
 
 def signup(request):
@@ -29,6 +29,8 @@ def login_view(request):
                 return redirect('dashboard')  # Change this to your dashboard URL
             else:
                 form.add_error(None, "Invalid username or password")
+        signup_form = SignUpForm()  # Define signup_form here
     else:
         form = LoginForm()
-    return render(request, 'registration/login.html', {'form': form})
+        signup_form = SignUpForm()  # Define signup_form here
+    return render(request, 'registration/login.html', {'form': form, 'signup_form': signup_form})
