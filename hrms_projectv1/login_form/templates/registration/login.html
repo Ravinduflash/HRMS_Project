@@ -10,7 +10,7 @@
     
     <script src="{% static 'js/scripts.js' %}"></script>
 </head>
-<body style="background-image: url('images/cover.png'); background-repeat: no-repeat; background-size: cover;">
+<body style="background-image: url('{% static 'images/cover.png' %}'); background-repeat: no-repeat; background-size: cover;">    
     <div class="container text-center" >
         <h1 class="text-white" style="font-size: 48px; margin-bottom: 20px;">Streamlining HR with Ease</h1>
         <div id="loginFormContainer" style="max-width: 400px;" class="container text-center">
@@ -18,8 +18,8 @@
             <form method="post" id="loginForm">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit">Login</button>
-                <button type="button" id="signupButton">Signup</button>
+                <button type="submit" class="btn btn-outline-success">Login</button>
+                <button type="button" id="signupButton" class="btn btn-outline-success">Signup</button>
             </form>
         </div>
         <div id="signupFormContainer" style="display: none;" >
@@ -27,8 +27,8 @@
             <form method="post" id="signupForm"style="max-width: 500px;" class="container text-center">
                 {% csrf_token %}
                 {{ signup_form.as_p }}
-                <button type="submit">Sign Up</button>
-                <button type="button" id="backButton">Back</button>
+                <button type="submit" class="btn btn-outline-success">Sign Up</button>
+                <button type="button" id="backButton" class="btn btn-outline-success">Back</button>
             </form>
         </div>
 
