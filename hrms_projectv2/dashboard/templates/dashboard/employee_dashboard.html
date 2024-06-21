@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />    
+
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -83,16 +86,22 @@
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <h2 class="text-center">HRMS</h2>
-        <a href="#">Employee Profile Management</a>
-        <a href="#">Leave Management</a>
-        <a href="#">Attendance Tracking</a>
-        <a href="#">Payroll Management</a>
-        <a href="#">Performance Reviews</a>
-        <a href="#">Training Management</a>
-        <a href="#">Document Management</a>
-        <a href="#">Task Management</a>
-        <a href="#">Announcements and News</a>
+        <h2 class="text-center"><span class="material-symbols-outlined">
+            diversity_2
+            </span> HRMS</h2>
+        <a href="#"><i class="bi bi-people"></i>  Employee Profile </a>
+        <a href="#"><i class="bi bi-card-text"></i>  Leave Management</a>
+        <a href="#"><i class="bi bi-journal-check"></i> Attendance Tracking</a>
+        <a href="#"><i class="bi bi-credit-card-fill"></i> Payroll Management</a>
+        <a href="#"><i class="bi bi-graph-up"></i> Performance Reviews</a>
+        <a href="#">
+            <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 1.2rem;">
+              model_training
+            </span> Training Management
+          </a>
+        <a href="#"><i class="bi bi-file-earmark-text-fill"></i> Document Management</a>
+        <a href="#"><i class="bi bi-list-task"></i> Task Management</a>
+        <a href="#"><i class="bi bi-app-indicator"></i> Announcements and News</a>
         
         
 
@@ -109,6 +118,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <span id="datetime" class="nav-link text-muted"></span>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Employees</a>
                         </li>
@@ -127,6 +139,23 @@
             </div>
         </nav>
 
+<!-- Live Date and Time  -->
+<script>
+    function updateDateTime() {
+        const now = new Date();
+        const day = now.getDate().toString().padStart(2, '0');
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        const year = now.getFullYear();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+        const dateTimeString = `${day}/${month}/${year} &nbsp; ${hours}:${minutes}:${seconds}`;
+        document.getElementById('datetime').innerHTML = dateTimeString;
+    }
+
+    updateDateTime();
+    setInterval(updateDateTime, 1000); // Update every 1 second
+</script>
         <!-- Dashboard Content -->
         <div class="container-fluid">
             <div class="row">
@@ -136,25 +165,25 @@
             </div>
             <div class="row">
                 <div class="col-md-3 stats-card">
-                    <h3>Employees</h3>
+                    <h3><i class="bi bi-people"></i> Employees</h3>
                     <p>{{ num_employees }}</p>
                 </div>
                 <div class="col-md-3 stats-card">
-                    <h3>Leave Requests</h3>
+                    <h3><i class="bi bi-card-text"></i> Leave Requests</h3>
                     <p>{{ num_leave_requests }}</p>
                 </div>
                 <div class="col-md-3 stats-card">
-                    <h3>Attendance</h3>
+                    <h3><i class="bi bi-journal-check"></i>  Attendance</h3>
                     <p>{{ num_attendance_records }}</p>
                 </div>
                 <div class="col-md-3 stats-card">
-                    <h3>Payroll</h3>
+                    <h3><i class="bi bi-credit-card-2-back"></i> Payroll</h3>
                     <p>{{ num_payroll_records }}</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 birthday-list">
-                    <h3>Upcoming Birthdays</h3>
+                    <h3>Upcoming Birthdays <i class="bi bi-calendar-check"></i></h3>
                     <ul>
                         {% for birthday in upcoming_birthdays %}
                             <li>{{ birthday.name }} - {{ birthday.date }}</li>
@@ -162,7 +191,7 @@
                     </ul>
                 </div>
                 <div class="col-md-6 leave-requests">
-                    <h3>New Leave Requests</h3>
+                    <h3>New Leave Requests <i class="bi bi-bookmark-check"></i></h3>
                     <ul>
                         {% for leave in new_leave_requests %}
                             <li>{{ leave.employee_name }} - {{ leave.request_date }}</li>
