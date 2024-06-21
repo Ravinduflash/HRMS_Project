@@ -1,0 +1,268 @@
+User
+I'm new here. How do I create an account?
+
+Model
+Welcome! To create an account, simply click on the "Signup" button below the login form. Fill out the required information, including your name, email, and password. Once you've completed the form, click the "Sign Up" button to create your account.
+
+User
+What information do I need to provide to create an account?
+
+Model
+To create an account, you'll need to provide your name, email address, and a password. You may also be asked to provide additional information, such as your job title or department, depending on your company's requirements.
+
+User
+I forgot my password. Can you help me reset it?
+
+Model
+Don't worry! If you've forgotten your password, you can reset it by clicking on the "Forgot Password" link below the login form. Follow the prompts to enter your email address and reset your password.
+
+User
+How do I log in to my account?
+
+Model
+To log in to your account, simply enter your email address and password in the login form. If you've forgotten your password, you can reset it by following the prompts. Once you've entered your credentials, click the "Login" button to access your account.
+
+User
+What if I'm having trouble logging in?
+
+Model
+If you're having trouble logging in, try checking your email address and password to ensure they're correct. If you're still having issues, feel free to reach out to our support team for assistance. We're here to help!
+
+User
+Can I use my social media account to log in?
+
+Model
+Currently, our system only supports login via email and password. However, we're working on integrating social media login options in the future. Stay tuned for updates!
+
+User
+What is the purpose of the sidebar in a dashboard?
+
+Model
+The sidebar provides quick access to various HRMS modules, such as Employee Profile Management, Leave Management, Attendance Tracking, and more. You can click on each module to navigate to its respective page.
+
+User
+Editing
+How do I view employee profiles?
+
+Model
+To view employee profiles, click on "Employee Profile Management" in the sidebar. This will take you to a page where you can search for and view individual employee profiles.
+
+User
+What are the stats cards on the dashboard?
+
+Model
+The stats cards display key metrics and statistics about your organization, such as the number of employees, leave requests, attendance records, and payroll records. These cards provide a quick overview of your organization's HR data.
+
+User
+How do I view upcoming birthdays?
+
+Model
+To view upcoming birthdays, look for the "Upcoming Birthdays" section on the dashboard. This section lists the names and dates of employees with upcoming birthdays.
+
+User
+What are new leave requests?
+
+Model
+The "New Leave Requests" section on the dashboard displays a list of recent leave requests submitted by employees. You can click on each request to view more details and take action.
+
+User
+How do I access reports?
+
+Model
+To access reports, click on "Reports" in the navigation bar at the top of the page. This will take you to a page where you can generate and view various reports related to HR data.
+
+User
+What is the chatbot feature?
+
+Model
+The chatbot feature allows you to interact with a virtual assistant that can provide answers to your HR-related questions and help you with tasks. You can access the chatbot by clicking on the "Chatbot" button in the navigation bar.
+
+User
+How do I use the chatbot?
+
+Model
+To use the chatbot, simply type your question or request in the chat window, and I'll respond with helpful information or guidance. You can also use the chatbot to ask about HR policies, procedures, or to request assistance with a specific task.
+
+User
+How do I log out of the system?
+
+Model
+To log out of the system, click on "Logout" in the navigation bar at the top of the page. This will securely log you out of the HRMS system.
+
+User
+What can I do as an HR Manager on this dashboard?
+
+Model
+As an HR Manager, you have access to a range of features on this dashboard. You can add, update, and delete employee records, view employee personal, family, and banking details, and manage leave requests.
+
+User
+How do I add a new employee to the system?
+
+Model
+To add a new employee, click on the "Add Employee" button on the HR Manager dashboard. Fill in the required information, including personal, family, and banking details, and click "Save" to add the employee to the system.
+
+User
+Can I update an employee's details?
+
+Model
+Yes, you can update an employee's details by clicking on the "Edit" button next to their name on the employee list. Make the necessary changes and click "Save" to update the employee's record.
+
+User
+How do I delete an employee from the system?
+
+Model
+To delete an employee, click on the "Delete" button next to their name on the employee list. Confirm that you want to delete the employee, and their record will be removed from the system.
+
+User
+Can I view an employee's personal details?
+
+Model
+Yes, as an HR Manager, you have access to view an employee's personal details, including their address, contact information, and emergency contacts.
+
+User
+Can I view an employee's family details?
+
+Model
+Yes, you can view an employee's family details, including their spouse and dependent information.
+
+User
+Can I view an employee's banking details?
+
+Model
+Yes, you can view an employee's banking details, including their account number and salary information.
+
+User
+What can I do on this dashboard as an employee?
+
+Model
+As an employee, you can view your own profile details, add, update, and delete leave requests, and view system stats. As an employee, you can access information about your personal details, view your leave balance, request leave, update your profile, and view your payslips. You can also use the chatbot to get help with HR-related queries.
+
+User
+Can I add a new leave request?
+
+Model
+Yes, you can add a new leave request by clicking on the "Add Leave Request" button on the Employee dashboard. Fill in the required information, including the dates and reason for the leave, and click "Save" to submit your request.
+
+User
+Can I update my leave request?
+
+Model
+Yes, you can update your leave request by clicking on the "Edit" button next to your leave request on the Employee dashboard. Make the necessary changes and click "Save" to update your request.
+
+User
+Can I delete my leave request?
+
+Model
+Yes, you can delete your leave request by clicking on the "Delete" button next to your leave request on the Employee dashboard. Confirm that you want to delete the request, and it will be removed from the system.
+
+User
+Can I view my profile details?
+
+Model
+Yes, you can view your profile details by clicking on the "My Profile" button on the Employee dashboard. This will show you your personal information, contact details, and other relevant data. Yes, you can view your own profile details, including your personal, family, and banking information.
+
+User
+Can I view other employees' profile details?
+
+Model
+No, as an employee, you do not have access to view other employees' profile details. You can only view your own profile information.
+
+User
+Can I add, update, or delete employee records?
+
+Model
+No, as an employee, you cannot add, update, or delete employee records. These actions are restricted to HR Managers.
+No, as an employee, you do not have permission to add, update, or delete employee records. Only HR Managers have access to these features.
+
+User
+Can I view system stats?
+
+Model
+You can view system stats, such as the number of employees, leave requests, and attendance records, on the "Stats" section of the Employee dashboard.
+Yes, you can view system stats such as the number of employees, leave requests, and attendance records. These statistics provide you with a general overview of the company's HR data. Yes, you can view system stats, including the number of employees, leave requests, and attendance records.
+
+User
+How do I view my attendance records?
+
+Model
+You can view your attendance records by clicking on the "Attendance" tab on the Employee dashboard. This will display your attendance history, including dates and times.
+
+User
+Can I request time off?
+
+Model
+Yes, you can request time off by submitting a leave request through the Employee dashboard. Your manager will review and approve or deny your request.
+
+User
+How do I view my leave balance?
+
+Model
+You can view your leave balance by clicking on the "Leave" tab on the Employee dashboard. This will display your available leave balance and any pending leave requests.
+
+User
+How do I approve or deny a leave request? as a HR manager
+
+Model
+To approve or deny a leave request, click on the "Leave Requests" tab on the HR Manager dashboard. Review the request and click "Approve" or "Deny" to take action.
+
+User
+Can I view employee attendance records?
+
+Model
+Yes, you can view employee attendance records by clicking on the "Attendance" tab on the HR Manager dashboard. This will display attendance records for all employees.
+
+User
+How do I generate reports?
+
+Model
+To generate reports, click on the "Reports" tab on the HR Manager dashboard. Select the type of report you want to generate, such as an employee list or attendance report, and click "Generate" to download the report.
+
+User
+Can I customize the dashboard?
+
+Model
+Yes, you can customize the dashboard by clicking on the "Settings" icon in the top right corner. From here, you can adjust the layout, add or remove widgets, and customize the appearance of the dashboard.
+
+User
+How do I get help with the system?
+
+Model
+If you need help with the system, you can click on the "Help" icon in the top right corner. This will open a support ticket, and our support team will respond to your inquiry.
+You can also use the chatbot for assistance with any questions you may have about the HRMS system.
+
+User
+Hii
+
+Model
+Hi there! 👋 How can I help you today? 😊
+
+User
+i want to access employee personal details can you guide me
+
+Model
+Are you HR Manager or Employee
+
+User
+i want to access employee bank details can you guide me
+
+Model
+Are you HR Manager or Employee
+
+User
+employee
+
+Model
+As a employee you can't access to the employee bank details
+
+User
+i want to access employee family details can you guide me
+
+Model
+As an employee, you can only view your own personal details. You don't have access to other employees' personal, family, or banking information. This is to protect the privacy of your colleagues and ensure their data security.
+If you have any questions regarding your own details or need help accessing your information, please feel free to ask!
+
+User
+hello i want to create user account how to do it ?
+
+Model
+Welcome! To create an account, simply click on the "Signup" button below the login form. Fill out the required information, including your name, email, and password. Once you've completed the form, click the "Sign Up" button to create your account.
