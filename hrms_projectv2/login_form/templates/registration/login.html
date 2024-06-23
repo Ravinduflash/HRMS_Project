@@ -10,23 +10,62 @@
 <body style="background-image: url('{% static 'images/cover.png' %}'); background-repeat: no-repeat; background-size: cover;">
     <div class="container text-center"><br><br><br>
         <h1 class="text-white" style="font-size: 48px; margin-bottom: 20px;">Streamlining HR with Ease</h1>
+        
+        <div class="container" style="max-width: 400px;">
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == 'error' %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ message }}
+                        </div>
+                    {% elif message.tags == 'success' %}
+                        <div class="alert alert-success" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+
         <div id="loginFormContainer" style="max-width: 400px; background-color: #ffffff; padding: 20px; border-radius: 10px;" class="container text-center">
-            <h2 id="formTitle" class="text-success-emphasis">Login</h2>
-            <form method="post" id="loginForm" >
+            <h2 id="formTitle" class="text-success-emphasis">Login</h2> <br>
+            <form method="post" id="loginForm" novalidate>
                 {% csrf_token %}
-                {{ form.as_p }}
+                <div class="form-group">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                    {% if form.username.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ form.username.errors|join:", " }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                    {% if form.password.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ form.password.errors|join:", " }}
+                        </div>
+                    {% endif %}
+                </div>
+                <br>
                 <button type="submit" class="btn btn-outline-success">Login</button>
                 <button type="button" id="signupButton" class="btn btn-outline-success">Signup</button>
             </form>
         </div>
-        
+
         <div id="signupFormContainer" style="display: none; background-color: #ffffff; padding: 20px; border-radius: 10px; max-width: 400px;" class="container text-center">
             <h2 id="formTitle" class="text-success-emphasis"> Sign Up </h2>
             <form method="post" id="signupForm" action="{% url 'signup' %}" style="max-width: 400px;" class="container text-center">
                 {% csrf_token %}
                 {{ signup_form.as_p }}
-                
-                <button type="submit" class="btn btn-outline-success"><<< Sign Up >>></button>
+                {% if signup_form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ signup_form.errors|join:", " }}
+                    </div>
+                {% endif %}
+                <button type="submit" class="btn btn-outline-success">Sign Up</button>
                 <button type="button" id="backButton" class="btn btn-outline-success">Back</button>
             </form>
         </div>
@@ -44,6 +83,18 @@
             });
         </script>
     </div>
-    
+
+    <!-- Chatbot -->
+    <script type="text/javascript">
+        (function(d, m){
+            var kommunicateSettings = 
+                {"appId":"c489b2dac0d951ed5b56196916d352b","popupWidget":true,"automaticChatOpenOnNavigation":true};
+            var s= document.createElement("script"); s.type = "text/javascript"; s.async = true;
+            s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+            var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+            window.kommunicate = m; m._globals = kommunicateSettings;
+        })(document, window.kommunicate || {});
+    </script>
+
 </body>
 </html>
