@@ -15,9 +15,9 @@ def login_view(request):
                 login(request, user)
                 messages.success(request, 'Login successful.')
                 if user.groups.filter(name='HR Managers').exists():
-                    return redirect('hr_manager_dashboard')
+                    return render(request, 'registration/login.html', {'form': form, 'signup_form': SignupForm(), 'redirect_url': 'hr_manager_dashboard'})
                 elif user.groups.filter(name='Employees').exists():
-                    return redirect('employee_dashboard')
+                    return render(request, 'registration/login.html', {'form': form, 'signup_form': SignupForm(), 'redirect_url': 'employee_dashboard'})
             else:
                 messages.error(request, 'Invalid username or password.')
         else:

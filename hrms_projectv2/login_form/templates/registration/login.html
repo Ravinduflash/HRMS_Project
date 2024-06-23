@@ -28,7 +28,7 @@
         </div>
 
         <div id="loginFormContainer" style="max-width: 400px; background-color: #ffffff; padding: 20px; border-radius: 10px;" class="container text-center">
-            <h2 id="formTitle" class="text-success-emphasis">Login</h2> <br>
+            <h2 id="formTitle" class="text-success-emphasis">Login</h2><br>
             <form method="post" id="loginForm" novalidate>
                 {% csrf_token %}
                 <div class="form-group">
@@ -81,6 +81,12 @@
                 document.getElementById("signupFormContainer").style.display = "none";
                 document.getElementById("formTitle").innerHTML = "Login";
             });
+
+            {% if redirect_url %}
+                setTimeout(function() {
+                    window.location.href = "{% url redirect_url %}";
+                }, 1750);  // Redirect after 2 seconds
+            {% endif %}
         </script>
     </div>
 
