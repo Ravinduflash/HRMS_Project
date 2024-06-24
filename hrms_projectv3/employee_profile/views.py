@@ -28,3 +28,7 @@ def create_employee(request):
         else:
             return JsonResponse({'error': 'Invalid form data', 'form_errors': form.errors}, status=400)
     return redirect('employee_profile_view')
+
+def employee_table(request):
+    employees = EmployeeProfile.objects.all()
+    return render(request, 'employee_table.html', {'employees': employees})
