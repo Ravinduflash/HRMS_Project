@@ -166,32 +166,41 @@
 
 
         <!-- apply_leave_request.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+Apply Leave Request
+{% endblock %}
+
+{% block content %}
 <h1 class="mb-4">Apply Leave Request</h1>
 
 <form method="post">
     {% csrf_token %}
     <div class="mb-3">
-        <label for="employee_id" class="form-label">Employee ID</label>
-        <input type="text" class="form-control" id="employee_id" name="employee_id" value="{{ employee.employee_id }}" readonly>
+        <label for="emp_name" class="form-label">Employee Name</label>
+        <input type="text" class="form-control" id="emp_name" value="{{ employee.emp_name }}" readonly>
     </div>
     <div class="mb-3">
-        <label for="employee_name" class="form-label">Employee Name</label>
-        <input type="text" class="form-control" id="employee_name" name="employee_name" value="{{ employee.name }}" readonly>
+        <label for="emp_no" class="form-label">Employee ID</label>
+        <input type="text" class="form-control" id="emp_no" value="{{ employee.emp_no }}" readonly>
     </div>
     <div class="mb-3">
         <label for="start_date" class="form-label">Start Date</label>
-        <input type="date" class="form-control" id="start_date" name="start_date">
+        <input type="date" class="form-control" id="start_date" name="start_date" required>
     </div>
     <div class="mb-3">
         <label for="end_date" class="form-label">End Date</label>
-        <input type="date" class="form-control" id="end_date" name="end_date">
+        <input type="date" class="form-control" id="end_date" name="end_date" required>
     </div>
     <div class="mb-3">
         <label for="reason" class="form-label">Reason</label>
-        <textarea class="form-control" id="reason" name="reason" rows="3"></textarea>
+        <textarea class="form-control" id="reason" name="reason" rows="3" required></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+{% endblock %}
 
 <!-- Chatbot -->
     <script type="text/javascript">
