@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('login_form.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('employee_profile/', include('employee_profile.urls')),
+    path('leave_management/', include('leave_management.urls')),
 ]
