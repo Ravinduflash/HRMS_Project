@@ -94,6 +94,17 @@
             padding: 10px;
             margin-bottom: 20px;
         }
+        #submit-btn, #reset-btn {
+            width: 100%; /* make the buttons full width of the parent container */
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        #reset-btn {
+            background-color: #ccc; /* change the background color of the reset button */
+            border-color: #ccc;
+            color: #333;
+        }
+
     </style>
 </head>
 <body>
@@ -190,17 +201,15 @@
     <!-- Add, Edit, Remove, and View Profile buttons -->
     <div class="row">
         <div class="col-md-12">
-            <button id="add-btn" class="btn btn-primary mb-3" id="add-btn">Add New Employee</button>
-            <button class="btn btn-secondary mb-3">Edit Employee</button>
-            <button class="btn btn-danger mb-3">Remove Employee</button>
-            <button class="btn btn-info mb-3">View Employee Profile</button>
+            <button id="add-btn" class="btn btn-outline-primary mb-3" id="add-btn">Add New Employee</button>
+            <button class="btn btn-outline-warning mb-3">Edit Employee</button>
+            <button class="btn btn-outline-danger mb-3">Remove Employee</button>
+            <button class="btn btn-outline-success mb-3">View Employee Profile</button>
         </div>
     </div>
 <br>
     
     <!-- Add employee panel (hidden by default) -->
-    <div class="main-content">
-        
     <!-- Add Employee Form -->
         <div id="add-employee-panel" class="card p-3 mb-3" style="display: none;">
             <h4 class="card-title alert alert-primary">Add Employee</h4>
@@ -261,7 +270,14 @@
                                 <label for="profile_picture">Profile Picture:</label>
                                 <input type="file" id="profile_picture" name="profile_picture" class="form-control-file">
                             </div>
-                            <button type="submit" id="submit-btn" class="btn btn-primary">Submit</button>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="submit" id="submit-btn" class="btn btn-primary">Submit</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="reset" id="reset-btn" class="btn btn-secondary">Reset</button>
+                                </div>
+                            </div>
                             <button type="button" id="back-btn" class="btn btn-secondary">Back</button>
                         </div>
                     </div>
