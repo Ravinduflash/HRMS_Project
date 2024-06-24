@@ -2,8 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('employee/leave/', views.EmployeeLeaveView.as_view(), name='employee_leave'),
-    path('employee/apply-leave/', views.ApplyLeaveView.as_view(), name='apply_leave'),
-    path('hr/dashboard/', views.HRManagerDashboardView.as_view(), name='hr_dashboard'),
-    path('leave/update/<int:pk>/', views.UpdateLeaveStatusView.as_view(), name='update_leave_status'),
+    path('apply_leave_request/', views.apply_leave_request, name='apply_leave_request'),
+    path('employee_leave_page/', views.employee_leave_page, name='employee_leave_page'),
+    path('hr_manager_leave_management/', views.hr_leave_management, name='hr_manager_leave_management'),
+    # Add other URLs as needed
 ]

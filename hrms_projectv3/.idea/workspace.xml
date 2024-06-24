@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="810770dd-5a6f-4cda-b59c-8aabebf7cafc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/leave_management/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hrms_projectv2/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/hrms_projectv2/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leave_management/templates/leave_management/employee leave management/apply_leave_request.html" beforeDir="false" afterPath="$PROJECT_DIR$/leave_management/templates/leave_management/employee leave management/apply_leave_request.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leave_management/templates/leave_management/employee leave management/employee_leave_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/leave_management/templates/leave_management/employee leave management/employee_leave_page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leave_management/templates/leave_management/hr manager leave management/hr_manager_leave_management.html" beforeDir="false" afterPath="$PROJECT_DIR$/leave_management/templates/leave_management/hr manager leave management/hr_manager_leave_management.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leave_management/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/leave_management/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leave_management/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/leave_management/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="abdfc6f7-abcd-4a82-b16d-1cba4064194b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,13 +18,18 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
   <component name="ProjectId" id="2iJWRhQWUdMbzGX2yL9LFcazVWt" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -43,8 +39,8 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Academics/sem 5/Business Appliations/grp project/2/hrms_projectv3&quot;
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Academics/sem 5/Business Appliations/grp project/1 test/HRMS_Project/hrms_projectv3&quot;
   }
 }</component>
   <component name="SharedIndexes">
@@ -57,7 +53,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="810770dd-5a6f-4cda-b59c-8aabebf7cafc" name="Changes" comment="" />
+      <changelist id="abdfc6f7-abcd-4a82-b16d-1cba4064194b" name="Changes" comment="" />
       <created>1719209158012</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />

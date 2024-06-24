@@ -1,0 +1,383 @@
+Index: leave_management/templates/leave_management/hr manager leave management/hr_manager_leave_management.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% load static %}\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>HR Manager Dashboard</title>\r\n    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\">\r\n    <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css\">\r\n    <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0\" />\r\n    <style>\r\n        body {\r\n            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n        }\r\n        .sidebar {\r\n            height: 100vh;\r\n            position: fixed;\r\n            left: 0;\r\n            top: 0;\r\n            width: 250px;\r\n            background-color: #343a40;\r\n            color: white;\r\n            padding-top: 1rem;\r\n        }\r\n        .sidebar a {\r\n            color: white;\r\n            text-decoration: none;\r\n            display: block;\r\n            padding: 1rem;\r\n            margin: 0.2rem 0;\r\n            border:1px solid gray;\r\n        }\r\n        .sidebar a:hover {\r\n            background-color: #495057;\r\n        }\r\n        .sidebar a:active {\r\n            background-color: #ebebeb;\r\n            color: #495057;\r\n        }\r\n        .main-content {\r\n            margin-left: 250px;\r\n            padding: 1rem;\r\n        }\r\n        .stats-card {\r\n            background-color: #f8f9fa;\r\n            padding: 1rem;\r\n            margin-bottom: 1rem;\r\n        }\r\n        .birthday-list,.leave-requests {\r\n            background-color: #f8f9fa;\r\n            padding: 1rem;\r\n            margin-top: 1rem;\r\n        }\r\n        #chatbot {\r\n            display: none;\r\n            position: fixed;\r\n            bottom: 20px;\r\n            right: 20px;\r\n            width: 300px;\r\n            height: 400px;\r\n            border: 1px solid #ccc;\r\n            background: white;\r\n            box-shadow: 0 0 10px rgba(0,0,0,0.1);\r\n            z-index: 1000;\r\n        }\r\n        #chatbot-header {\r\n            background: #007bff;\r\n            color: white;\r\n            padding: 10px;\r\n            text-align: center;\r\n        }\r\n        #chatbot-messages {\r\n            height: 300px;\r\n            overflow-y: auto;\r\n            padding: 10px;\r\n        }\r\n        #chatbot-input {\r\n            display: flex;\r\n            padding: 10px;\r\n            border-top: 1px solid #ccc;\r\n        }\r\n        #chatbot-input input {\r\n            flex: 1;\r\n            padding: 5px;\r\n        }\r\n        #chatbot-input button {\r\n            padding: 5px 10px;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n    <!-- Sidebar -->\r\n    <div class=\"sidebar\">\r\n        <h2 class=\"text-center\"><span class=\"material-symbols-outlined\">\r\n            diversity_2\r\n            </span> HRMS</h2>\r\n        <a href=\"#\"><i class=\"bi bi-people\"></i>  Employee Profile </a>\r\n        <a href=\"#\"><i class=\"bi bi-card-text\"></i>  Leave Management</a>\r\n        <a href=\"#\"><i class=\"bi bi-journal-check\"></i> Attendance Tracking</a>\r\n        <a href=\"#\"><i class=\"bi bi-credit-card-fill\"></i> Payroll Management</a>\r\n        <a href=\"#\"><i class=\"bi bi-graph-up\"></i> Performance Reviews</a>\r\n        <a href=\"#\">\r\n            <span class=\"material-symbols-outlined\" style=\"vertical-align: middle; font-size: 1.2rem;\">\r\n              model_training\r\n            </span> Training Management\r\n        </a>\r\n        <a href=\"#\"><i class=\"bi bi-file-earmark-text-fill\"></i> Document Management</a>\r\n        <a href=\"#\"><i class=\"bi bi-list-task\"></i> Task Management</a>\r\n        <a href=\"#\"><i class=\"bi bi-app-indicator\"></i> Announcements and News</a>\r\n\r\n\r\n\r\n    </div>\r\n\r\n    <!-- Main Content -->\r\n    <div class=\"main-content\">\r\n        <!-- Navigation Bar -->\r\n<nav class=\"navbar navbar-expand-lg navbar-light bg-light\">\r\n    <div class=\"container-fluid\">\r\n        <a class=\"navbar-brand\" href=\"#\">Leave Management</h1></a>\r\n        <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n            <span class=\"navbar-toggler-icon\"></span>\r\n        </button>\r\n        <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\r\n            <ul class=\"navbar-nav ms-auto\">\r\n                <li class=\"nav-item\">\r\n                    <span id=\"datetime\" class=\"nav-link text-muted\"></span>\r\n                </li>\r\n                </li>\r\n                <li class=\"nav-item\">\r\n                    <a class=\"nav-link\" href=\"#\">Employees</a>\r\n                </li>\r\n                <li class=\"nav-item\">\r\n                    <a class=\"nav-link\" href=\"#\">Reports</a>\r\n                </li>\r\n                <li class=\"nav-item\">\r\n                    <a class=\"nav-link\" href=\"#\">Settings</a>\r\n                </li>\r\n                <li class=\"nav-item\">\r\n                    <a class=\"nav-link\" href=\"#\">Logout</a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</nav>\r\n\r\n<!-- Live Date and Time  -->\r\n<script>\r\n    function updateDateTime() {\r\n        const now = new Date();\r\n        const day = now.getDate().toString().padStart(2, '0');\r\n        const month = (now.getMonth() + 1).toString().padStart(2, '0');\r\n        const year = now.getFullYear();\r\n        const hours = now.getHours().toString().padStart(2, '0');\r\n        const minutes = now.getMinutes().toString().padStart(2, '0');\r\n        const seconds = now.getSeconds().toString().padStart(2, '0');\r\n        const dateTimeString = `${day}/${month}/${year} &nbsp; ${hours}:${minutes}:${seconds}`;\r\n        document.getElementById('datetime').innerHTML = dateTimeString;\r\n    }\r\n\r\n    updateDateTime();\r\n    setInterval(updateDateTime, 1000); // Update every 1 second\r\n</script>\r\n\r\n<br>\r\n\r\n        <!-- hr_manager_leave_management.html -->\r\n<div class=\"row mb-4\">\r\n    <div class=\"col\">\r\n        <h3>Number of New Leave Requests</h3>\r\n        <p>{{ pending_requests.count }}</p>\r\n    </div>\r\n    <div class=\"col\">\r\n        <h3>Today's Leaves</h3>\r\n        <p>{{ today_leaves }}</p>\r\n    </div>\r\n</div>\r\n\r\n{% if pending_requests %}\r\n    <table class=\"table table-striped\">\r\n        <thead>\r\n            <tr>\r\n                <th>Employee ID</th>\r\n                <th>Employee Name</th>\r\n                <th>Start Date</th>\r\n                <th>End Date</th>\r\n                <th>Reason</th>\r\n                <th>Action</th>\r\n                <th>Comment</th>\r\n            </tr>\r\n        </thead>\r\n        <tbody>\r\n            {% for pending_request in pending_requests %}\r\n                <tr>\r\n                    <td>{{ pending_request.leave_request.employee.employee_id }}</td>\r\n                    <td>{{ pending_request.leave_request.employee.name }}</td>\r\n                    <td>{{ pending_request.leave_request.start_date }}</td>\r\n                    <td>{{ pending_request.leave_request.end_date }}</td>\r\n                    <td>{{ pending_request.leave_request.reason }}</td>\r\n                    <td>\r\n                        <form method=\"post\">\r\n                            {% csrf_token %}\r\n                            <input type=\"hidden\" name=\"leave_request\" value=\"{{ pending_request.id }}\">\r\n                            <select name=\"action\" class=\"form-select\">\r\n                                <option value=\"accept\">Accept</option>\r\n                                <option value=\"reject\">Reject</option>\r\n                                <option value=\"cancel\">Cancel</option>\r\n                            </select>\r\n                            <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\r\n                        </form>\r\n                    </td>\r\n                    <td>\r\n                        <form method=\"post\">\r\n                            {% csrf_token %}\r\n                            <textarea name=\"comment\" class=\"form-control\" rows=\"2\"></textarea>\r\n                            <button type=\"submit\" class=\"btn btn-primary mt-2\">Submit Comment</button>\r\n                        </form>\r\n                    </td>\r\n                </tr>\r\n            {% endfor %}\r\n        </tbody>\r\n    </table>\r\n{% else %}\r\n    <p>No pending leave requests.</p>\r\n\r\n<!-- Chatbot -->\r\n    <script type=\"text/javascript\">\r\n        (function(d, m){\r\n            var kommunicateSettings =\r\n                {\"appId\":\"c489b2dac0d951ed5b56196916d352b\",\"popupWidget\":true,\"automaticChatOpenOnNavigation\":true};\r\n            var s = document.createElement(\"script\"); s.type = \"text/javascript\"; s.async = true;\r\n            s.src = \"https://widget.kommunicate.io/v2/kommunicate.app\";\r\n            var h = document.getElementsByTagName(\"head\")[0]; h.appendChild(s);\r\n            window.kommunicate = m; m._globals = kommunicateSettings;\r\n        })(document, window.kommunicate || {});\r\n    /* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */\r\n    </script>\r\n\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/leave_management/templates/leave_management/hr manager leave management/hr_manager_leave_management.html b/leave_management/templates/leave_management/hr manager leave management/hr_manager_leave_management.html
+--- a/leave_management/templates/leave_management/hr manager leave management/hr_manager_leave_management.html	
++++ b/leave_management/templates/leave_management/hr manager leave management/hr_manager_leave_management.html	
+@@ -165,63 +165,129 @@
+ <br>
+ 
+         <!-- hr_manager_leave_management.html -->
+-<div class="row mb-4">
+-    <div class="col">
+-        <h3>Number of New Leave Requests</h3>
+-        <p>{{ pending_requests.count }}</p>
+-    </div>
+-    <div class="col">
+-        <h3>Today's Leaves</h3>
+-        <p>{{ today_leaves }}</p>
+-    </div>
+-</div>
+-
+-{% if pending_requests %}
+-    <table class="table table-striped">
+-        <thead>
+-            <tr>
+-                <th>Employee ID</th>
+-                <th>Employee Name</th>
+-                <th>Start Date</th>
+-                <th>End Date</th>
+-                <th>Reason</th>
+-                <th>Action</th>
+-                <th>Comment</th>
+-            </tr>
+-        </thead>
+-        <tbody>
+-            {% for pending_request in pending_requests %}
+-                <tr>
+-                    <td>{{ pending_request.leave_request.employee.employee_id }}</td>
+-                    <td>{{ pending_request.leave_request.employee.name }}</td>
+-                    <td>{{ pending_request.leave_request.start_date }}</td>
+-                    <td>{{ pending_request.leave_request.end_date }}</td>
+-                    <td>{{ pending_request.leave_request.reason }}</td>
+-                    <td>
+-                        <form method="post">
+-                            {% csrf_token %}
+-                            <input type="hidden" name="leave_request" value="{{ pending_request.id }}">
+-                            <select name="action" class="form-select">
+-                                <option value="accept">Accept</option>
+-                                <option value="reject">Reject</option>
+-                                <option value="cancel">Cancel</option>
+-                            </select>
+-                            <button type="submit" class="btn btn-primary">Submit</button>
+-                        </form>
+-                    </td>
+-                    <td>
+-                        <form method="post">
+-                            {% csrf_token %}
+-                            <textarea name="comment" class="form-control" rows="2"></textarea>
+-                            <button type="submit" class="btn btn-primary mt-2">Submit Comment</button>
+-                        </form>
+-                    </td>
++{% load static %}
++    <div class="container mt-5">
++        <h1>HR Manager Leave Management</h1>
++        <div class="row">
++            <div class="col-md-6">
++                <h2>New Leave Requests: {{ new_leave_requests_count }}</h2>
++            </div>
++            <div class="col-md-6">
++                <h2>Today's Leaves: {{ today_leaves_count }}</h2>
++            </div>
++        </div>
++        <h2>New Leave Requests</h2>
++        <table class="table table-bordered table-striped">
++            <thead>
++                <tr>
++                    <th>Employee ID</th>
++                    <th>Employee Name</th>
++                    <th>Start Date</th>
++                    <th>End Date</th>
++                    <th>Reason</th>
++                    <th>Action</th>
++                </tr>
++            </thead>
++            <tbody>
++                {% for request in pending_requests %}
++                    <tr>
++                        <td>{{ request.employee.emp_no }}</td>
++                        <td>{{ request.employee.emp_name }}</td>
++                        <td>{{ request.start_date }}</td>
++                        <td>{{ request.end_date }}</td>
++                        <td>{{ request.reason }}</td>
++                        <td>
++                            <form method="post" action="{% url 'update_leave_status' request.id %}">
++                                {% csrf_token %}
++                                <select name="status" class="form-select">
++                                    <option value="accept">Accept</option>
++                                    <option value="reject">Reject</option>
++                                    <option value="cancel">Cancel</option>
++                                </select>
++                                <textarea name="comment" class="form-control mt-2" placeholder="Comment"></textarea>
++                                <button type="submit" class="btn btn-primary mt-2">Submit</button>
++                            </form>
++                        </td>
++                    </tr>
++                {% endfor %}
++            </tbody>
++        </table>
++        <h2>Filter Leaves</h2>
++        <form method="get" action=".">
++            <div class="row mb-3">
++                <div class="col-md-6">
++                    <label for="start_date">Start Date:</label>
++                    <input type="date" id="start_date" name="start_date" class="form-control">
++                </div>
++                <div class="col-md-6">
++                    <label for="end_date">End Date:</label>
++                    <input type="date" id="end_date" name="end_date" class="form-control">
++                </div>
++            </div>
++            <div class="row mb-3">
++                <div class="col-md-6">
++                    <label for="leave_type">Leave Type:</label>
++                    <select id="leave_type" name="leave_type" class="form-control">
++                        <option value="">All</option>
++                        <option value="accepted">Accepted</option>
++                        <option value="rejected">Rejected</option>
++                        <option value="canceled">Canceled</option>
++                    </select>
++                </div>
++            </div>
++            <div class="row mb-3">
++                <div class="col-md-6">
++                    <label for="employee_id">Employee ID:</label>
++                    <input type="text" id="employee_id" name="employee_id" class="form-control">
++                </div>
++            </div>
++            <div class="row mb-3">
++                <div class="col-md-12">
++                    <button type="submit" class="btn btn-secondary">Filter</button>
++                </div>
++            </div>
++        </form>
++        <table class="table table-bordered mt-3">
++            <thead>
++                <tr>
++                    <th>Type</th>
++                    <th>Start Date</th>
++                    <th>End Date</th>
++                    <th>Reason</th>
++                    <th>Comment</th>
+                 </tr>
+-            {% endfor %}
+-        </tbody>
+-    </table>
+-{% else %}
+-    <p>No pending leave requests.</p>
++            </thead>
++            <tbody>
++                {% for leave in leaves %}
++                    <tr>
++                        <td>Accepted</td>
++                        <td>{{ leave.start_date }}</td>
++                        <td>{{ leave.end_date }}</td>
++                        <td>{{ leave.reason }}</td>
++                        <td>{{ leave.comment }}</td>
++                    </tr>
++                {% endfor %}
++                {% for leave in rejected_leaves %}
++                    <tr>
++                        <td>Rejected</td>
++                        <td>{{ leave.start_date }}</td>
++                        <td>{{ leave.end_date }}</td>
++                        <td>{{ leave.reason }}</td>
++                        <td>{{ leave.comment }}</td>
++                    </tr>
++                {% endfor %}
++                {% for leave in canceled_leaves %}
++                    <tr>
++                        <td>Canceled</td>
++                        <td>{{ leave.start_date }}</td>
++                        <td>{{ leave.end_date }}</td>
++                        <td>{{ leave.reason }}</td>
++                        <td>{{ leave.comment }}</td>
++                    </tr>
++                {% endfor %}
++            </tbody>
++        </table>
++    </div>
+ 
+ <!-- Chatbot -->
+     <script type="text/javascript">
+Index: leave_management/templates/leave_management/employee leave management/employee_leave_page.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>Employee Dashboard</title>\r\n    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\">\r\n    <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css\">\r\n    <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0\" />\r\n\r\n    <style>\r\n        body {\r\n            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n        }\r\n        .sidebar {\r\n            height: 100vh;\r\n            position: fixed;\r\n            left: 0;\r\n            top: 0;\r\n            width: 250px;\r\n            background-color: #343a40;\r\n            color: white;\r\n            padding-top: 1rem;\r\n\r\n        }\r\n        .sidebar a {\r\n            color: white;\r\n            text-decoration: none;\r\n            display: block;\r\n            padding: 1rem;\r\n            margin: 0.2rem 0;\r\n            border:1px solid gray;\r\n\r\n        }\r\n        .sidebar a:hover {\r\n            background-color: #495057;\r\n        }\r\n        .sidebar a:active {\r\n            background-color: #ebebeb;\r\n            color: #495057;\r\n        }\r\n        .main-content {\r\n            margin-left: 250px;\r\n            padding: 1rem;\r\n        }\r\n        .stats-card {\r\n            background-color: #f8f9fa;\r\n            padding: 1rem;\r\n            margin-bottom: 1rem;\r\n        }\r\n        .birthday-list,.leave-requests {\r\n            background-color: #f8f9fa;\r\n            padding: 1rem;\r\n            margin-top: 1rem;\r\n        }\r\n        #chatbot {\r\n            display: none;\r\n            position: fixed;\r\n            bottom: 20px;\r\n            right: 20px;\r\n            width: 300px;\r\n            height: 400px;\r\n            border: 1px solid #ccc;\r\n            background: white;\r\n            box-shadow: 0 0 10px rgba(0,0,0,0.1);\r\n            z-index: 1000;\r\n        }\r\n        #chatbot-header {\r\n            background: #007bff;\r\n            color: white;\r\n            padding: 10px;\r\n            text-align: center;\r\n        }\r\n        #chatbot-messages {\r\n            height: 300px;\r\n            overflow-y: auto;\r\n            padding: 10px;\r\n        }\r\n        #chatbot-input {\r\n            display: flex;\r\n            padding: 10px;\r\n            border-top: 1px solid #ccc;\r\n        }\r\n        #chatbot-input input {\r\n            flex: 1;\r\n            padding: 5px;\r\n        }\r\n        #chatbot-input button {\r\n            padding: 5px 10px;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n    <!-- Sidebar -->\r\n    <div class=\"sidebar\">\r\n        <h2 class=\"text-center\"><span class=\"material-symbols-outlined\">\r\n            diversity_2\r\n            </span> HRMS</h2>\r\n        <a href=\"#\"><i class=\"bi bi-people\"></i>  Employee Profile </a>\r\n        <a href=\"#\"><i class=\"bi bi-card-text\"></i>  Leave Management</a>\r\n        <a href=\"#\"><i class=\"bi bi-journal-check\"></i> Attendance Tracking</a>\r\n        <a href=\"#\"><i class=\"bi bi-credit-card-fill\"></i> Payroll Management</a>\r\n        <a href=\"#\"><i class=\"bi bi-graph-up\"></i> Performance Reviews</a>\r\n        <a href=\"#\">\r\n            <span class=\"material-symbols-outlined\" style=\"vertical-align: middle; font-size: 1.2rem;\">\r\n              model_training\r\n            </span> Training Management\r\n          </a>\r\n        <a href=\"#\"><i class=\"bi bi-file-earmark-text-fill\"></i> Document Management</a>\r\n        <a href=\"#\"><i class=\"bi bi-list-task\"></i> Task Management</a>\r\n        <a href=\"#\"><i class=\"bi bi-app-indicator\"></i> Announcements and News</a>\r\n\r\n\r\n\r\n    </div>\r\n\r\n    <!-- Main Content -->\r\n    <div class=\"main-content\">\r\n        <!-- Navigation Bar -->\r\n        <nav class=\"navbar navbar-expand-lg navbar-light bg-light\">\r\n            <div class=\"container-fluid\">\r\n                <a class=\"navbar-brand\" href=\"#\">Leave Management</a>\r\n                <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n                    <span class=\"navbar-toggler-icon\"></span>\r\n                </button>\r\n                <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\r\n                    <ul class=\"navbar-nav ms-auto\">\r\n                        <li class=\"nav-item\">\r\n                            <span id=\"datetime\" class=\"nav-link text-muted\"></span>\r\n                        </li>\r\n                        <li class=\"nav-item\">\r\n                            <a class=\"nav-link\" href=\"#\">Employees</a>\r\n                        </li>\r\n                       <li class=\"nav-item\">\r\n                            <a class=\"nav-link\" href=\"#\">Reports</a>\r\n                        </li>\r\n                        <li class=\"nav-item\">\r\n                            <a class=\"nav-link\" href=\"#\">Settings</a>\r\n                        </li>\r\n                        <li class=\"nav-item\">\r\n                            <a class=\"nav-link\" href=\"#\">Logout</a>\r\n                        </li>\r\n\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </nav>\r\n\r\n<!-- Live Date and Time  -->\r\n<script>\r\n    function updateDateTime() {\r\n        const now = new Date();\r\n        const day = now.getDate().toString().padStart(2, '0');\r\n        const month = (now.getMonth() + 1).toString().padStart(2, '0');\r\n        const year = now.getFullYear();\r\n        const hours = now.getHours().toString().padStart(2, '0');\r\n        const minutes = now.getMinutes().toString().padStart(2, '0');\r\n        const seconds = now.getSeconds().toString().padStart(2, '0');\r\n        const dateTimeString = `${day}/${month}/${year} &nbsp; ${hours}:${minutes}:${seconds}`;\r\n        document.getElementById('datetime').innerHTML = dateTimeString;\r\n    }\r\n\r\n    updateDateTime();\r\n    setInterval(updateDateTime, 1000); // Update every 1 second\r\n</script>\r\n\r\n<br>\r\n        <!-- employee_leave_page.html -->\r\n{% extends 'base.html' %}\r\n\r\n{% block title %}\r\nEmployee Leave Page\r\n{% endblock %}\r\n\r\n{% block content %}\r\n<h1 class=\"mb-4\">Employee Leave Page</h1>\r\n\r\n<div class=\"row mb-4\">\r\n    <div class=\"col\">\r\n        <h3>Status of New Leave Request</h3>\r\n        {% if pending_leave_requests %}\r\n            <ul>\r\n            {% for leave_request in pending_leave_requests %}\r\n                <li>\r\n                    <strong>Leave Request:</strong> {{ leave_request.start_date }} to {{ leave_request.end_date }} <br>\r\n                    <strong>Reason:</strong> {{ leave_request.reason }} <br>\r\n                    <form method=\"post\">\r\n                        {% csrf_token %}\r\n                        <input type=\"hidden\" name=\"leave_id\" value=\"{{ leave_request.id }}\">\r\n                        <input type=\"hidden\" name=\"leave_status\" value=\"accepted\">\r\n                        <button type=\"submit\" class=\"btn btn-success\">Accept</button>\r\n                    </form>\r\n                    <form method=\"post\">\r\n                        {% csrf_token %}\r\n                        <input type=\"hidden\" name=\"leave_id\" value=\"{{ leave_request.id }}\">\r\n                        <input type=\"hidden\" name=\"leave_status\" value=\"rejected\">\r\n                        <button type=\"submit\" class=\"btn btn-danger\">Reject</button>\r\n                    </form>\r\n                    <form method=\"post\">\r\n                        {% csrf_token %}\r\n                        <input type=\"hidden\" name=\"leave_id\" value=\"{{ leave_request.id }}\">\r\n                        <input type=\"hidden\" name=\"leave_status\" value=\"canceled\">\r\n                        <button type=\"submit\" class=\"btn btn-warning\">Cancel</button>\r\n                    </form>\r\n                </li>\r\n            {% endfor %}\r\n            </ul>\r\n        {% else %}\r\n            <p>No pending leave requests.</p>\r\n        {% endif %}\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row mt-4\">\r\n    <div class=\"col\">\r\n        <h3>Leave History</h3>\r\n\r\n        <form method=\"get\" class=\"mb-3\">\r\n            <div class=\"row\">\r\n                <div class=\"col-md-4\">\r\n                    <label for=\"start_date\">Start Date:</label>\r\n                    <input type=\"date\" id=\"start_date\" name=\"start_date\" class=\"form-control\">\r\n                </div>\r\n                <div class=\"col-md-4\">\r\n                    <label for=\"end_date\">End Date:</label>\r\n                    <input type=\"date\" id=\"end_date\" name=\"end_date\" class=\"form-control\">\r\n                </div>\r\n                <div class=\"col-md-4\">\r\n                    <label for=\"leave_type\">Leave Type:</label>\r\n                    <select id=\"leave_type\" name=\"leave_type\" class=\"form-control\">\r\n                        <option value=\"\">All</option>\r\n                        <option value=\"pending\">Pending Requests</option>\r\n                        <option value=\"accepted\">Accepted</option>\r\n                        <option value=\"rejected\">Rejected</option>\r\n                        <option value=\"canceled\">Canceled</option>\r\n                    </select>\r\n                </div>\r\n            </div>\r\n            <button type=\"submit\" class=\"btn btn-primary mt-2\">Apply Filter</button>\r\n        </form>\r\n\r\n        {% if filtered_leaves %}\r\n            <ul>\r\n            {% for leave in filtered_leaves %}\r\n                <li>\r\n                    <strong>Leave Dates:</strong> {{ leave.start_date }} to {{ leave.end_date }} <br>\r\n                    <strong>Reason:</strong> {{ leave.reason }} <br>\r\n                    <strong>Status:</strong> {{ leave.status }} <br>\r\n                    {% if leave.hr_comment %}\r\n                        <strong>HR Comment:</strong> {{ leave.hr_comment }}\r\n                    {% endif %}\r\n                </li>\r\n            {% endfor %}\r\n            </ul>\r\n        {% else %}\r\n            <p>No leaves found based on the filter criteria.</p>\r\n        {% endif %}\r\n    </div>\r\n</div>\r\n\r\n{% endblock %}\r\n\r\n\r\n <!-- Chatbot -->\r\n    <script type=\"text/javascript\">\r\n        (function(d, m){\r\n            var kommunicateSettings =\r\n                {\"appId\":\"c489b2dac0d951ed5b56196916d352b\",\"popupWidget\":true,\"automaticChatOpenOnNavigation\":true};\r\n            var s = document.createElement(\"script\"); s.type = \"text/javascript\"; s.async = true;\r\n            s.src = \"https://widget.kommunicate.io/v2/kommunicate.app\";\r\n            var h = document.getElementsByTagName(\"head\")[0]; h.appendChild(s);\r\n            window.kommunicate = m; m._globals = kommunicateSettings;\r\n        })(document, window.kommunicate || {});\r\n    /* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */\r\n    </script>\r\n\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/leave_management/templates/leave_management/employee leave management/employee_leave_page.html b/leave_management/templates/leave_management/employee leave management/employee_leave_page.html
+--- a/leave_management/templates/leave_management/employee leave management/employee_leave_page.html	
++++ b/leave_management/templates/leave_management/employee leave management/employee_leave_page.html	
+@@ -166,100 +166,100 @@
+ 
+ <br>
+         <!-- employee_leave_page.html -->
+-{% extends 'base.html' %}
+-
+-{% block title %}
+-Employee Leave Page
+-{% endblock %}
+-
+-{% block content %}
+-<h1 class="mb-4">Employee Leave Page</h1>
+-
+-<div class="row mb-4">
+-    <div class="col">
+-        <h3>Status of New Leave Request</h3>
+-        {% if pending_leave_requests %}
+-            <ul>
+-            {% for leave_request in pending_leave_requests %}
+-                <li>
+-                    <strong>Leave Request:</strong> {{ leave_request.start_date }} to {{ leave_request.end_date }} <br>
+-                    <strong>Reason:</strong> {{ leave_request.reason }} <br>
+-                    <form method="post">
+-                        {% csrf_token %}
+-                        <input type="hidden" name="leave_id" value="{{ leave_request.id }}">
+-                        <input type="hidden" name="leave_status" value="accepted">
+-                        <button type="submit" class="btn btn-success">Accept</button>
+-                    </form>
+-                    <form method="post">
+-                        {% csrf_token %}
+-                        <input type="hidden" name="leave_id" value="{{ leave_request.id }}">
+-                        <input type="hidden" name="leave_status" value="rejected">
+-                        <button type="submit" class="btn btn-danger">Reject</button>
+-                    </form>
+-                    <form method="post">
+-                        {% csrf_token %}
+-                        <input type="hidden" name="leave_id" value="{{ leave_request.id }}">
+-                        <input type="hidden" name="leave_status" value="canceled">
+-                        <button type="submit" class="btn btn-warning">Cancel</button>
+-                    </form>
+-                </li>
+-            {% endfor %}
+-            </ul>
+-        {% else %}
+-            <p>No pending leave requests.</p>
+-        {% endif %}
+-    </div>
+-</div>
+-
+-<div class="row mt-4">
+-    <div class="col">
+-        <h3>Leave History</h3>
+-
+-        <form method="get" class="mb-3">
+-            <div class="row">
+-                <div class="col-md-4">
++{% load static %}
++    <div class="container mt-5">
++        <h1>Employee Leave Page</h1>
++        <div class="row">
++            <div class="col-md-6">
++                <h2>Status of New Leave Request:
++                    {% if pending_request %}
++                        Pending
++                    {% elif leaves %}
++                        Accepted
++                    {% elif rejected_leaves %}
++                        Rejected
++                    {% elif canceled_leaves %}
++                        Canceled
++                    {% else %}
++                        No Leave Request
++                    {% endif %}
++                </h2>
++            </div>
++            <div class="col-md-6">
++                <a href="{% url 'apply_leave' %}" class="btn btn-primary">Apply for a New Leave</a>
++            </div>
++        </div>
++        <h2>Past Leaves</h2>
++        <form method="get" action=".">
++            <div class="row mb-3">
++                <div class="col-md-6">
+                     <label for="start_date">Start Date:</label>
+                     <input type="date" id="start_date" name="start_date" class="form-control">
+                 </div>
+-                <div class="col-md-4">
++                <div class="col-md-6">
+                     <label for="end_date">End Date:</label>
+                     <input type="date" id="end_date" name="end_date" class="form-control">
+                 </div>
+-                <div class="col-md-4">
++            </div>
++            <div class="row mb-3">
++                <div class="col-md-6">
+                     <label for="leave_type">Leave Type:</label>
+                     <select id="leave_type" name="leave_type" class="form-control">
+                         <option value="">All</option>
+-                        <option value="pending">Pending Requests</option>
+                         <option value="accepted">Accepted</option>
+                         <option value="rejected">Rejected</option>
+                         <option value="canceled">Canceled</option>
+                     </select>
+                 </div>
+             </div>
+-            <button type="submit" class="btn btn-primary mt-2">Apply Filter</button>
++            <div class="row mb-3">
++                <div class="col-md-12">
++                    <button type="submit" class="btn btn-secondary">Filter</button>
++                </div>
++            </div>
+         </form>
+-
+-        {% if filtered_leaves %}
+-            <ul>
+-            {% for leave in filtered_leaves %}
+-                <li>
+-                    <strong>Leave Dates:</strong> {{ leave.start_date }} to {{ leave.end_date }} <br>
+-                    <strong>Reason:</strong> {{ leave.reason }} <br>
+-                    <strong>Status:</strong> {{ leave.status }} <br>
+-                    {% if leave.hr_comment %}
+-                        <strong>HR Comment:</strong> {{ leave.hr_comment }}
+-                    {% endif %}
+-                </li>
+-            {% endfor %}
+-            </ul>
+-        {% else %}
+-            <p>No leaves found based on the filter criteria.</p>
+-        {% endif %}
++        <table class="table table-bordered mt-3">
++            <thead>
++                <tr>
++                    <th>Type</th>
++                    <th>Start Date</th>
++                    <th>End Date</th>
++                    <th>Reason</th>
++                    <th>Comment</th>
++                </tr>
++            </thead>
++            <tbody>
++                {% for leave in leaves %}
++                    <tr>
++                        <td>Accepted</td>
++                        <td>{{ leave.start_date }}</td>
++                        <td>{{ leave.end_date }}</td>
++                        <td>{{ leave.reason }}</td>
++                        <td>{{ leave.comment }}</td>
++                    </tr>
++                {% endfor %}
++                {% for leave in rejected_leaves %}
++                    <tr>
++                        <td>Rejected</td>
++                        <td>{{ leave.start_date }}</td>
++                        <td>{{ leave.end_date }}</td>
++                        <td>{{ leave.reason }}</td>
++                        <td>{{ leave.comment }}</td>
++                    </tr>
++                {% endfor %}
++                {% for leave in canceled_leaves %}
++                    <tr>
++                        <td>Canceled</td>
++                        <td>{{ leave.start_date }}</td>
++                        <td>{{ leave.end_date }}</td>
++                        <td>{{ leave.reason }}</td>
++                        <td>{{ leave.comment }}</td>
++                    </tr>
++                {% endfor %}
++            </tbody>
++        </table>
+     </div>
+-</div>
+ 
+-{% endblock %}
+-
+ 
+  <!-- Chatbot -->
+     <script type="text/javascript">
