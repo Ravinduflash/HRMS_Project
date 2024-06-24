@@ -38,10 +38,31 @@
             background-color: #ebebeb;
             color: #495057;
         }
-       .main-content {
+        .main-content1 {
             margin-left: 250px;
             padding: 1rem;
+            height: calc(100vh - 56px); /* adjust the height to fit the remaining space */
+            overflow-y: auto; /* add a scrollbar if the content exceeds the height */
+            padding-left: 20px; /* add a 20px padding to the left */
         }
+
+        .main-content {
+            margin-left: 1px;
+            padding: 1rem;
+            height: calc(100vh - 56px); /* adjust the height to fit the remaining space */
+            overflow-y: auto; /* add a scrollbar if the content exceeds the height */
+            padding-left: 20px; /* add a 20px padding to the left */
+        }
+        
+        .table-responsive {
+            overflow-x: auto; /* add a horizontal scrollbar if the table is too wide */
+            margin-left: -10px; /* move the table 20px to the left */
+        }
+        
+        .table {
+            width: 100%; /* make the table full width */
+        }
+
     </style>
 </head>
 <body>
@@ -73,7 +94,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="main-content">
+    <div class="main-content1">
         <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
@@ -143,22 +164,23 @@
             <button class="btn btn-info">View Profile</button>
         </div>
     </div>
-
+<br>
     <!-- Employee Profile Table -->
-    <div class="main-content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>Employee Table</h2>
-                </div>
+<div class="main-content text-center">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Employee Table</h2>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-striped">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>Emp No</th>
-                                <th>Emp Name</th>
+                                <th>User Name</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Nationality</th>
