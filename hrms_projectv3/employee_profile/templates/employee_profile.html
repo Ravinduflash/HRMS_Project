@@ -1,5 +1,3 @@
-<!-- employee_profile.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +11,7 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-       .sidebar {
+        .sidebar {
             height: 100vh;
             position: fixed;
             left: 0;
@@ -23,18 +21,18 @@
             color: white;
             padding-top: 1rem;
         }
-       .sidebar a {
+        .sidebar a {
             color: white;
             text-decoration: none;
             display: block;
             padding: 1rem;
             margin: 0.2rem 0;
-            border:1px solid gray;
+            border: 1px solid gray;
         }
-       .sidebar a:hover {
+        .sidebar a:hover {
             background-color: #495057;
         }
-       .sidebar a:active {
+        .sidebar a:active {
             background-color: #ebebeb;
             color: #495057;
         }
@@ -45,7 +43,6 @@
             overflow-y: auto; /* add a scrollbar if the content exceeds the height */
             padding-left: 20px; /* add a 20px padding to the left */
         }
-
         .main-content {
             margin-left: 1px;
             padding: 1rem;
@@ -53,16 +50,13 @@
             overflow-y: auto; /* add a scrollbar if the content exceeds the height */
             padding-left: 20px; /* add a 20px padding to the left */
         }
-        
         .table-responsive {
             overflow-x: auto; /* add a horizontal scrollbar if the table is too wide */
             margin-left: -10px; /* move the table 20px to the left */
         }
-        
         .table {
             width: 100%; /* make the table full width */
         }
-
     </style>
 </head>
 <body>
@@ -93,7 +87,7 @@
 
     </div>
 
-    <!-- Main Content -->
+<!-- Main Content -->
     <div class="main-content1">
         <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -124,6 +118,7 @@
         </div>
     </div>
 </nav>
+
 
 <!-- logout button -->
 <script>
@@ -158,75 +153,203 @@
     <!-- Add, Edit, Remove, and View Profile buttons -->
     <div class="row">
         <div class="col-md-12">
-            <button class="btn btn-primary">Add</button>
-            <button class="btn btn-secondary">Edit</button>
-            <button class="btn btn-danger">Remove</button>
-            <button class="btn btn-info">View Profile</button>
+            <button id="add-btn" class="btn btn-primary mb-3" id="add-btn">Add New Employee</button>
+            <button class="btn btn-secondary mb-3">Edit Employee</button>
+            <button class="btn btn-danger mb-3">Remove Employee</button>
+            <button class="btn btn-info mb-3">View Employee Profile</button>
         </div>
     </div>
 <br>
-    <!-- Employee Profile Table -->
-<div class="main-content text-center">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Employee Table</h2>
-            </div>
+    
+    <!-- Add employee panel (hidden by default) -->
+    <div class="main-content">
+        
+        <!-- Add Employee Form -->
+        <div id="add-employee-panel" class="card p-3 mb-3" style="display: none;">
+            <form id="add-employee-form" action="{% url 'create_employee' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Add Employee</h4>
+                                    <div class="form-group">
+                                        <label for="emp_name">User Name:</label>
+                                        <input type="text" id="emp_name" name="emp_name" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="first_name">First Name:</label>
+                                        <input type="text" id="first_name" name="first_name" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="last_name">Last Name:</label>
+                                        <input type="text" id="last_name" name="last_name" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nationality">Nationality:</label>
+                                        <input type="text" id="nationality" name="nationality" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gender">Gender:</label>
+                                        <select id="gender" name="gender" class="form-control">
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email:</label>
+                                        <input type="email" id="email" name="email" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contact_no">Contact No:</label>
+                                        <input type="tel" id="contact_no" name="contact_no" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="position">Position:</label>
+                                        <input type="text" id="position" name="position" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="emp_status">Emp Status:</label>
+                                        <select id="emp_status" name="emp_status" class="form-control">
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profile_picture">Profile Picture:</label>
+                                        <input type="file" id="profile_picture" name="profile_picture" class="form-control-file">
+                                    </div>
+                                    <button type="submit" id="submit-btn" class="btn btn-primary">Submit</button>
+                                    <button type="button" id="back-btn" class="btn btn-secondary">Back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>Emp No</th>
-                                <th>User Name</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Nationality</th>
-                                <th>Gender</th>
-                                <th>Email</th>
-                                <th>Contact No</th>
-                                <th>Position</th>
-                                <th>Emp Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for employee in employees %}
-                            <tr>
-                                <td>{{ employee.emp_no }}</td>
-                                <td>{{ employee.emp_name }}</td>
-                                <td>{{ employee.first_name }}</td>
-                                <td>{{ employee.last_name }}</td>
-                                <td>{{ employee.nationality }}</td>
-                                <td>{{ employee.gender }}</td>
-                                <td>{{ employee.email }}</td>
-                                <td>{{ employee.contact_no }}</td>
-                                <td>{{ employee.position }}</td>
-                                <td>{{ employee.emp_status }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+
+        <!-- Employee Profile Table -->
+        <div class="main-content text-center">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Employee Table</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Emp No</th>
+                                        <th>User Name</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Nationality</th>
+                                        <th>Gender</th>
+                                        <th>Email</th>
+                                        <th>Contact No</th>
+                                        <th>Position</th>
+                                        <th>Emp Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for employee in employees %}
+                                    <tr>
+                                        <td>{{ employee.emp_no }}</td>
+                                        <td>{{ employee.emp_name }}</td>
+                                        <td>{{ employee.first_name }}</td>
+                                        <td>{{ employee.last_name }}</td>
+                                        <td>{{ employee.nationality }}</td>
+                                        <td>{{ employee.gender }}</td>
+                                        <td>{{ employee.email }}</td>
+                                        <td>{{ employee.contact_no }}</td>
+                                        <td>{{ employee.position }}</td>
+                                        <td>{{ employee.emp_status }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
+    <script>
+        const addBtn = document.getElementById('add-btn');
+        const addEmployeePanel = document.getElementById('add-employee-panel');
+        const addEmployeeForm = document.getElementById('add-employee-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const backBtn = document.getElementById('back-btn');
+
+        // Show add employee panel when "Add" button is clicked
+        addBtn.addEventListener('click', () => {
+            addEmployeePanel.style.display = 'block';
+        });
+
+        // Hide add employee panel when "Back" button is clicked
+        backBtn.addEventListener('click', () => {
+            addEmployeePanel.style.display = 'none';
+        });
+
+        // Handle form submission using AJAX
+        addEmployeeForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(addEmployeeForm);
+            fetch('{% url 'create_employee' %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                },
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.errors) {
+                    console.error(data.errors);
+                    alert('Failed to add employee. Check the form for errors.');
+                } else {
+                    // Add new employee to the table
+                    const tableBody = document.querySelector('.table-responsive table tbody');
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <td>${data.emp_no}</td>
+                        <td>${data.emp_name}</td>
+                        <td>${data.first_name}</td>
+                        <td>${data.last_name}</td>
+                        <td>${data.nationality}</td>
+                        <td>${data.gender}</td>
+                        <td>${data.email}</td>
+                        <td>${data.contact_no}</td>
+                        <td>${data.position}</td>
+                        <td>${data.emp_status}</td>
+                    `;
+                    tableBody.appendChild(newRow);
+                    addEmployeePanel.style.display = 'none';
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     
-
-<!-- Chatbot -->
-<script type="text/javascript">     
-    (function(d, m){
-        var kommunicateSettings = 
-            {"appId":"c489b2dac0d951ed5b56196916d352b","popupWidget":true,"automaticChatOpenOnNavigation":true};
-        var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
-        s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
-        var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
-        window.kommunicate = m; m._globals = kommunicateSettings;
-    })(document, window.kommunicate || {});
-/* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */
-</script>
-
+    <!-- Chatbot -->
+    <script type="text/javascript">
+        (function(d, m){
+            var kommunicateSettings = 
+                {"appId":"c489b2dac0d951ed5b56196916d352b","popupWidget":true,"automaticChatOpenOnNavigation":true};
+            var s= document.createElement("script"); s.type = "text/javascript"; s.async = true;
+            s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+            var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+            window.kommunicate = m; m._globals = kommunicateSettings;
+        })(document, window.kommunicate || {});
+    </script> 
 </body>
 </html>
