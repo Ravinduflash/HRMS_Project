@@ -166,96 +166,100 @@
 
 <br>
         <!-- employee_leave_page.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+Employee Leave Page
+{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Employee Leave Page</h1>
+
 <div class="row mb-4">
     <div class="col">
         <h3>Status of New Leave Request</h3>
         {% if pending_leave_requests %}
-            <p>Pending</p>
-        {% elif accepted_leaves %}
-            <p>Accepted</p>
-        {% elif rejected_leaves %}
-            <p>Rejected</p>
-        {% elif canceled_leaves %}
-            <p>Canceled</p>
+            <ul>
+            {% for leave_request in pending_leave_requests %}
+                <li>
+                    <strong>Leave Request:</strong> {{ leave_request.start_date }} to {{ leave_request.end_date }} <br>
+                    <strong>Reason:</strong> {{ leave_request.reason }} <br>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="leave_id" value="{{ leave_request.id }}">
+                        <input type="hidden" name="leave_status" value="accepted">
+                        <button type="submit" class="btn btn-success">Accept</button>
+                    </form>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="leave_id" value="{{ leave_request.id }}">
+                        <input type="hidden" name="leave_status" value="rejected">
+                        <button type="submit" class="btn btn-danger">Reject</button>
+                    </form>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="leave_id" value="{{ leave_request.id }}">
+                        <input type="hidden" name="leave_status" value="canceled">
+                        <button type="submit" class="btn btn-warning">Cancel</button>
+                    </form>
+                </li>
+            {% endfor %}
+            </ul>
         {% else %}
-            <p>No active leave requests.</p>
+            <p>No pending leave requests.</p>
         {% endif %}
     </div>
-    <div class="col text-end">
-        <a href="{% url 'apply_leave_request' %}" class="btn btn-primary">Apply a New Leave Request</a>
-    </div>
 </div>
 
-<div class="row mb-4">
+<div class="row mt-4">
     <div class="col">
-        <h3>Past Leaves</h3>
+        <h3>Leave History</h3>
+
+        <form method="get" class="mb-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" id="start_date" name="start_date" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label for="end_date">End Date:</label>
+                    <input type="date" id="end_date" name="end_date" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label for="leave_type">Leave Type:</label>
+                    <select id="leave_type" name="leave_type" class="form-control">
+                        <option value="">All</option>
+                        <option value="pending">Pending Requests</option>
+                        <option value="accepted">Accepted</option>
+                        <option value="rejected">Rejected</option>
+                        <option value="canceled">Canceled</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Apply Filter</button>
+        </form>
+
+        {% if filtered_leaves %}
+            <ul>
+            {% for leave in filtered_leaves %}
+                <li>
+                    <strong>Leave Dates:</strong> {{ leave.start_date }} to {{ leave.end_date }} <br>
+                    <strong>Reason:</strong> {{ leave.reason }} <br>
+                    <strong>Status:</strong> {{ leave.status }} <br>
+                    {% if leave.hr_comment %}
+                        <strong>HR Comment:</strong> {{ leave.hr_comment }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No leaves found based on the filter criteria.</p>
+        {% endif %}
     </div>
 </div>
 
-<form method="get" action="">
-    <div class="row mb-3">
-        <div class="col-md-3">
-            <label for="start_date" class="form-label">Start Date</label>
-            <input type="date" class="form-control" id="start_date" name="start_date" value="{{ start_date }}">
-        </div>
-        <div class="col-md-3">
-            <label for="end_date" class="form-label">End Date</label>
-            <input type="date" class="form-control" id="end_date" name="end_date" value="{{ end_date }}">
-        </div>
-        <div class="col-md-3">
-            <label for="leave_type" class="form-label">Leave Type</label>
-            <select class="form-select" id="leave_type" name="leave_type">
-                <option value="">All</option>
-                <option value="accepted">Accepted</option>
-                <option value="rejected">Rejected</option>
-                <option value="canceled">Canceled</option>
-            </select>
-        </div>
-        <div class="col-md-3">
-            <label for="filter_button" class="form-label">Filter</label>
-            <button type="submit" id="filter_button" class="btn btn-primary form-control">Apply Filter</button>
-        </div>
-    </div>
-</form>
+{% endblock %}
 
-{% if leaves %}
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Employee ID</th>
-                <th>Employee Name</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Reason</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for leave in leaves %}
-                <tr>
-                    <td>{{ leave.employee.employee_id }}</td>
-                    <td>{{ leave.employee.name }}</td>
-                    <td>{{ leave.start_date }}</td>
-                    <td>{{ leave.end_date }}</td>
-                    <td>{{ leave.reason }}</td>
-                    <td>
-                        {% if leave.accepted_leave %}
-                            Accepted
-                        {% elif leave.rejected_leave %}
-                            Rejected
-                        {% elif leave.canceled_leave %}
-                            Canceled
-                        {% else %}
-                            Pending
-                        {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>No leaves found.</p>
-{% endif %}
 
  <!-- Chatbot -->
     <script type="text/javascript">
