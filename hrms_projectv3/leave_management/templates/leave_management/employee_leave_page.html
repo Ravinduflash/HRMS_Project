@@ -112,6 +112,33 @@
         .filter-button:hover {
         background-color: darkblue;
         }
+<<<<<<< Updated upstream
+=======
+                .form-container {
+            width: 650px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: gray;
+            border-radius: 10px;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="date"],
+        .form-group textarea,
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .form-group button {
+            background-color: green;
+            color: white;
+            border: none;
+        }
+        .form-group button:hover {
+            background-color: darkgreen;
+        }
+
+>>>>>>> Stashed changes
 
     </style>
 </head>
@@ -205,6 +232,7 @@
     setInterval(updateDateTime, 1000); // Update every 1 second
 </script>
 
+<<<<<<< Updated upstream
 
 
 <br>
@@ -270,6 +298,168 @@
     </table>
     </div>
 
+=======
+<br>
+
+<br>
+
+
+        <!-- Main Content -->
+<div class="main-content1">
+    <!-- Employee Number Input -->
+    <div id="employee-number-form">
+        <form id="employee-number-form">
+            <label for="employee-number">Enter Employee Number:</label>
+            <input type="text" id="employee-number" name="employee-number" required>
+            <button type="submit" id="submit-employee-number">Submit</button>
+        </form>
+    </div>
+
+    <!-- Display New Leave Requests -->
+    <div id="new-leave-requests">
+        <!-- Table to display new leave requests -->
+        <h2>New Leave Requests</h2>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Reason</th>
+                </tr>
+            </thead>
+            <tbody id="new-leave-requests-body">
+                <!-- Content will be filled dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Display Past Leaves -->
+    <div id="past-leaves">
+        <!-- Table to display past leaves -->
+        <h2>Past Leaves</h2>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Employee Number</th>
+                    <th>Employee Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="past-leaves-body">
+                <!-- Content will be filled dynamically -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- JavaScript to handle form submission and data fetching -->
+<script>
+    document.getElementById('employee-number-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+
+        // Get the entered employee number
+        const employeeNumber = document.getElementById('employee-number').value;
+
+        // Call function to fetch new leave requests and past leaves
+        fetchLeaveData(employeeNumber);
+    });
+
+    // Function to fetch and display leave data
+    function fetchLeaveData(employeeNumber) {
+        // Clear previous data
+        document.getElementById('new-leave-requests-body').innerHTML = '';
+        document.getElementById('past-leaves-body').innerHTML = '';
+
+        // Fetch new leave requests
+        fetch(`/get_new_leave_requests?employee_number=${employeeNumber}`)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(request => {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <td>${request.employee_name}</td>
+                        <td>${request.start_date}</td>
+                        <td>${request.end_date}</td>
+                        <td>${request.reason}</td>
+                    `;
+                    document.getElementById('new-leave-requests-body').appendChild(newRow);
+                });
+            });
+
+        // Fetch past leaves
+        fetch(`/get_past_leaves?employee_number=${employeeNumber}`)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(leave => {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <td>${leave.employee_number}</td>
+                        <td>${leave.employee_name}</td>
+                        <td>${leave.start_date}</td>
+                        <td>${leave.end_date}</td>
+                        <td>${leave.reason}</td>
+                        <td>${leave.status}</td>
+                    `;
+                    document.getElementById('past-leaves-body').appendChild(newRow);
+                });
+            });
+    }
+</script>
+<script>// leave_management.js
+
+// Function to fetch new leave requests
+function fetchNewLeaveRequests(employeeNumber) {
+    fetch(`/get_new_leave_requests?employee_number=${employeeNumber}`)
+        .then(response => response.json())
+        .then(data => {
+            // Populate new leave requests table
+            const newLeaveRequestsBody = document.getElementById('new-leave-requests-body');
+            newLeaveRequestsBody.innerHTML = '';
+            data.forEach(request => {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${request.emp_name}</td>
+                    <td>${request.start_date}</td>
+                    <td>${request.end_date}</td>
+                    <td>${request.reason}</td>
+                `;
+                newLeaveRequestsBody.appendChild(newRow);
+            });
+        });
+}
+
+// Function to fetch past leaves
+function fetchPastLeaves(employeeNumber) {
+    fetch(`/get_past_leaves?employee_number=${employeeNumber}`)
+        .then(response => response.json())
+        .then(data => {
+            // Populate past leaves table
+            const pastLeavesBody = document.getElementById('past-leaves-body');
+            pastLeavesBody.innerHTML = '';
+            data.forEach(leave => {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${leave.emp_no}</td>
+                    <td>${leave.emp_name}</td>
+                    <td>${leave.start_date}</td>
+                    <td>${leave.end_date}</td>
+                    <td>${leave.reason}</td>
+                    <td>${leave.status}</td>
+                `;
+                pastLeavesBody.appendChild(newRow);
+            });
+        });
+}
+</script>
+
+    <script src="{% static 'js/leave_management.js' %}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+>>>>>>> Stashed changes
  <!-- Chatbot -->
     <script type="text/javascript">
         (function(d, m){
@@ -284,4 +474,8 @@
     </script>
 
 </body>
+<<<<<<< Updated upstream
 </html>
+=======
+</html><q></q>
+>>>>>>> Stashed changes
