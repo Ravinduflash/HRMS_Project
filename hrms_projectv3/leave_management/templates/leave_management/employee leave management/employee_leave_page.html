@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Dashboard</title>
+    <title>Employee Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -21,7 +20,6 @@
             background-color: #343a40;
             color: white;
             padding-top: 1rem;
-
         }
         .sidebar a {
             color: white;
@@ -29,8 +27,7 @@
             display: block;
             padding: 1rem;
             margin: 0.2rem 0;
-            border:1px solid gray;
-
+            border: 1px solid gray;
         }
         .sidebar a:hover {
             background-color: #495057;
@@ -39,64 +36,88 @@
             background-color: #ebebeb;
             color: #495057;
         }
-        .main-content {
+        .main-content1 {
             margin-left: 250px;
             padding: 1rem;
+            height: calc(100vh - 56px); /* adjust the height to fit the remaining space */
+            overflow-y: auto; /* add a scrollbar if the content exceeds the height */
+            padding-left: 20px; /* add a 20px padding to the left */
         }
-        .stats-card {
-            background-color: #f8f9fa;
+        .main-content {
+            margin-left: 1px;
             padding: 1rem;
-            margin-bottom: 1rem;
+            height: calc(100vh - 56px); /* adjust the height to fit the remaining space */
+            overflow-y: auto; /* add a scrollbar if the content exceeds the height */
+            padding-left: 20px; /* add a 20px padding to the left */
         }
-        .birthday-list,.leave-requests {
-            background-color: #f8f9fa;
-            padding: 1rem;
-            margin-top: 1rem;
+        .table-responsive {
+            overflow-x: auto; /* add a horizontal scrollbar if the table is too wide */
+            margin-left: -10px; /* move the table 20px to the left */
         }
-        #chatbot {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 300px;
-            height: 400px;
-            border: 1px solid #ccc;
-            background: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            z-index: 1000;
+        .table {
+            width: 100%; /* make the table full width */
         }
-        #chatbot-header {
-            background: #007bff;
-            color: white;
-            padding: 10px;
-            text-align: center;
+        #add-employee-panel {
+            width: 80%; /* adjust the width to your liking */
+            margin: 40px auto; /* center the panel */
         }
-        #chatbot-messages {
-            height: 300px;
-            overflow-y: auto;
-            padding: 10px;
-        }
-        #chatbot-input {
+
+        #add-employee-panel.row {
             display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        #add-employee-panel.col-md-6 {
+            width: 48%; /* adjust the width to your liking */
+            margin: 10px;
+        }
+
+        #add-employee-panel.form-group {
+            margin-bottom: 20px;
+        }
+
+        #add-employee-panel label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #add-employee-panel input, #add-employee-panel select {
+            width: 100%;
             padding: 10px;
-            border-top: 1px solid #ccc;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
         }
-        #chatbot-input input {
-            flex: 1;
-            padding: 5px;
+
+        #add-employee-panel button[type="submit"], #add-employee-panel button[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
         }
-        #chatbot-input button {
-            padding: 5px 10px;
+        #submit-btn, #reset-btn {
+            width: 100%; /* make the buttons full width of the parent container */
+            padding: 10px;
+            margin-bottom: 20px;
         }
+        #reset-btn {
+            background-color: #ccc; /* change the background color of the reset button */
+            border-color: #ccc;
+            color: #333;
+        }
+
     </style>
 </head>
 <body>
+
     <!-- Sidebar -->
     <div class="sidebar">
         <h2 class="text-center"><span class="material-symbols-outlined">
             diversity_2
             </span> HRMS</h2>
-        <a href="#"><i class="bi bi-people"></i>  Employee Profile </a>
+        <a href="{% url 'employee_dashboard' %}"><span class="material-symbols-outlined" style="vertical-align: middle; font-size: 1.2rem;">
+            dashboard
+            </span> Dashboard </a>
+        <a href="{% url 'employee_table' %}"><i class="bi bi-people"></i>  Employee Profile </a>
         <a href="#"><i class="bi bi-card-text"></i>  Leave Management</a>
         <a href="#"><i class="bi bi-journal-check"></i> Attendance Tracking</a>
         <a href="#"><i class="bi bi-credit-card-fill"></i> Payroll Management</a>
@@ -105,7 +126,7 @@
             <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 1.2rem;">
               model_training
             </span> Training Management
-          </a>
+        </a>
         <a href="#"><i class="bi bi-file-earmark-text-fill"></i> Document Management</a>
         <a href="#"><i class="bi bi-list-task"></i> Task Management</a>
         <a href="#"><i class="bi bi-app-indicator"></i> Announcements and News</a>
@@ -114,37 +135,49 @@
 
     </div>
 
-    <!-- Main Content -->
-    <div class="main-content">
+<!-- Main Content -->
+    <div class="main-content1">
         <!-- Navigation Bar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Leave Management</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <span id="datetime" class="nav-link text-muted"></span>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Employees</a>
-                        </li>
-                       <li class="nav-item">
-                            <a class="nav-link" href="#">Reports</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Settings</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Logout</a>
-                        </li>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Employee Profile</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <span id="datetime" class="nav-link text-muted"></span>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Employees</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Reports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Settings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="logout-button" href="#">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-                    </ul>
-                </div>
-            </div>
-        </nav>
+
+<!-- logout button -->
+<script>
+    document.getElementById('logout-button').addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+        if (confirm('Do you really want to logout?')) {
+            alert('Goodbye!, HR Manager');
+            window.location.href = 'https://streamlinehr-7z5r26w.gamma.site/';
+        }
+    });
+</script>
 
 <!-- Live Date and Time  -->
 <script>
@@ -164,9 +197,20 @@
     setInterval(updateDateTime, 1000); // Update every 1 second
 </script>
 
+    <br>
+    <!-- Add, Edit, Remove, and View Profile buttons -->
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-outline-success mb-3">View User Profile</button>
+        </div>
+    </div>
+<br>
+
+
 <br>
         <!-- employee_leave_page.html -->
 {% load static %}
+<<<<<<< Updated upstream
 
     <div class="container mt-5">
         <h1>Leave Management</h1>
@@ -187,6 +231,28 @@
             </div>
             <div class="col-md-6 text-end">
                 <a href="{% url 'apply_leave' %}" class="btn btn-primary">Apply a New Leave Request</a>
+=======
+    <div class="container mt-5">
+        <h1>Employee Leave Page</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Status of New Leave Request:
+                    {% if pending_request %}
+                        Pending
+                    {% elif leaves %}
+                        Accepted
+                    {% elif rejected_leaves %}
+                        Rejected
+                    {% elif canceled_leaves %}
+                        Canceled
+                    {% else %}
+                        No Leave Request
+                    {% endif %}
+                </h2>
+            </div>
+            <div class="col-md-6">
+                <a href="{% url 'apply_leave' %}" class="btn btn-primary">Apply for a New Leave</a>
+>>>>>>> Stashed changes
             </div>
         </div>
         <h2>Past Leaves</h2>
@@ -212,7 +278,15 @@
                     </select>
                 </div>
             </div>
+<<<<<<< Updated upstream
             <button type="submit" class="btn btn-secondary">Filter</button>
+=======
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-secondary">Filter</button>
+                </div>
+            </div>
+>>>>>>> Stashed changes
         </form>
         <table class="table table-bordered mt-3">
             <thead>
@@ -255,8 +329,11 @@
             </tbody>
         </table>
     </div>
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
 
 
  <!-- Chatbot -->
