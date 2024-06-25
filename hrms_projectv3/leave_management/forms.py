@@ -1,5 +1,6 @@
 from django import forms
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 from .models import PendingRequest
 
 class LeaveRequestForm(forms.ModelForm):
@@ -20,6 +21,8 @@ class LeaveStatusForm(forms.Form):
     status = forms.ChoiceField(choices=STATUS_CHOICES)
     comment = forms.CharField(widget=forms.Textarea, required=False)
 =======
+=======
+>>>>>>> Stashed changes
 from .models import PendingLeaveRequest
 
 class LeaveRequestForm(forms.ModelForm):
@@ -35,4 +38,7 @@ class LeaveStatusForm(forms.Form):
     ]
     status = forms.ChoiceField(choices=status_choices)
     comment = forms.CharField(widget=forms.Textarea)
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes

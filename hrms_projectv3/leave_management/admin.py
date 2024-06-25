@@ -1,5 +1,6 @@
 from django.contrib import admin
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 from .models import PendingRequest, Leave, RejectedLeave, CanceledLeave
 
 admin.site.register(PendingRequest)
@@ -10,6 +11,11 @@ from django.contrib import admin
 from .models import PendingRequest, Leave, RejectedLeave, CanceledLeave
 
 admin.site.register(PendingRequest)
+=======
+from .models import PendingLeaveRequest, Leave, RejectedLeave, CanceledLeave
+
+admin.site.register(PendingLeaveRequest)
+>>>>>>> Stashed changes
 =======
 from .models import PendingLeaveRequest, Leave, RejectedLeave, CanceledLeave
 
