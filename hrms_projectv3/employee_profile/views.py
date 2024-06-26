@@ -59,10 +59,12 @@ def update_employee(request, emp_no):
 
 #remove section
 @require_http_methods(["DELETE"])
-def delete_employee(request, emp_no):
+def remove_employee(request, emp_no):
     try:
-        employee = get_object_or_404(EmployeeProfile, emp_no=emp_no)
+        employee = EmployeeProfile.objects.get(emp_no=emp_no)
         employee.delete()
-        return JsonResponse({'success': True})
+        return JsonResponse({'message': 'Employee removed successfully'}, status=204)
+    except EmployeeProfile.DoesNotExist:
+        return JsonResponse({'error': 'Employee with emp_no {} does not exist'.format(emp_no)}, status=404)
     except Exception as e:
-        return JsonResponse({'success': False, 'error': str(e)}, status=400)
+        return JsonResponse({'error': 'Failed to remove employee', 'detail': str(e)}, status=500)
