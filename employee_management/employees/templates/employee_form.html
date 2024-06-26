@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Search Employee Panel -->
+        <div id="search-employee-panel" class="panel">
+            <h4 class="card-title alert alert-info">Search Employee</h4>
+            <div class="form-group">
+                <label for="emp_no">Employee Number</label>
+                <form method="post" action="{% url 'search_employee' %}">
+                    {% csrf_token %}
+                    <input type="text" class="form-control" id="emp_no" name="emp_no">
+                    <button type="submit" class="btn btn-info mt-2">Search</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Edit Employee Panel -->
+        {% if employee %}
+        <div id="edit-employee-panel" class="panel mt-5">
+            <h4 class="card-title alert alert-warning">Edit Employee</h4>
+            <form id="edit-employee-form" action="{% url 'update_employee' employee.emp_no %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="edit-emp_name">User Name:</label>
+                                <input type="text" id="edit-emp_name" name="emp_name" class="form-control" value="{{ employee.emp_name }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-first_name">First Name:</label>
+                                <input type="text" id="edit-first_name" name="first_name" class="form-control" value="{{ employee.first_name }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-last_name">Last Name:</label>
+                                <input type="text" id="edit-last_name" name="last_name" class="form-control" value="{{ employee.last_name }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-nationality">Nationality:</label>
+                                <input type="text" id="edit-nationality" name="nationality" class="form-control" value="{{ employee.nationality }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="edit-gender">Gender:</label>
+                                <select id="edit-gender" name="gender" class="form-control">
+                                    <option value="Male" {% if employee.gender == "Male" %}selected{% endif %}>Male</option>
+                                    <option value="Female" {% if employee.gender == "Female" %}selected{% endif %}>Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-email">Email:</label>
+                                <input type="email" id="edit-email" name="email" class="form-control" value="{{ employee.email }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-contact_no">Contact No:</label>
+                                <input type="tel" id="edit-contact_no" name="contact_no" class="form-control" value="{{ employee.contact_no }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-position">Position:</label>
+                                <input type="text" id="edit-position" name="position" class="form-control" value="{{ employee.position }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="edit-emp_status">Emp Status:</label>
+                                <select id="edit-emp_status" name="emp_status" class="form-control">
+                                    <option value="Active" {% if employee.emp_status == "Active" %}selected{% endif %}>Active</option>
+                                    <option value="Inactive" {% if employee.emp_status == "Inactive" %}selected{% endif %}>Inactive</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-profile_picture">Profile Picture:</label>
+                                <input type="file" id="edit-profile_picture" name="profile_picture" class="form-control-file">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="submit" id="update-btn" class="btn btn-primary">Update</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" id="edit-back-btn" class="btn btn-secondary">Back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 """
-URL configuration for hrms_projectv2 project.
+URL configuration for employee_management project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -19,9 +19,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('login_form.urls')),
-    path('dashboard/', include('dashboard.urls')),
-    path('employee_profile/', include('employee_profile.urls')),
-    path('leave_management/', include('leave_management.urls')),
-   
+    path('employees/', include('employees.urls')),
 ]
