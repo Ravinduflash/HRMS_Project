@@ -7,4 +7,5 @@ urlpatterns = [
     path('employee_table/', views.employee_table, name='employee_table'),
     path('search/', views.search_employee, name='search_employee'), 
     path('update/<int:emp_no>/', views.update_employee, name='update_employee'),
+    path('delete_employee/<int:emp_no>/', views.delete_employee, name='delete_employee'),
 ]
